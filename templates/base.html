@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>EcoAcción IA</title>
@@ -7,10 +8,27 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
+
+<header>
+
+    <h2>🌎 EcoAcción IA</h2>
+
+    <nav>
+        <a href="/inicio">Inicio</a>
+        <a href="/evaluacion">Evaluación</a>
+        <a href="/retos">Retos</a>
+        <a href="/progreso">Progreso</a>
+        <a href="/aprende">Aprende</a>
+        <a href="/ia">IA</a>
+    </nav>
+
+</header>
 
 {% block contenido %}
 {% endblock %}
 
 </body>
+
 </html>

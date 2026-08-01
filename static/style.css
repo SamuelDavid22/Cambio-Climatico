@@ -5,6 +5,16 @@ body{
     margin-top:100px;
 }
 
+header{
+    background:white;
+    display:flex;
+    align-items:center;
+
+    padding:20px 40px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
 h1{
     color:#2e7d32;
 }
@@ -20,4 +30,28 @@ button{
 
 button:hover{
     background:#1b5e20;
+}
+
+nav a{
+    text-decoration:none;
+    color:#2e7d32;
+    font-weight:bold;
+
+    margin-left:20px;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+
+    margin:0 auto;
+}
+
+nav a:hover{
+    color:#1b5e20;
+}
+
+main{
+    text-align:center;
+    margin-top:80px;
 }
