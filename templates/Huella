@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold text-success">
+            🌿 Calculadora de Huella de Carbono
+        </h1>
+
+        <p class="text-muted">
+            Completa el formulario y descubre el impacto ambiental de tus hábitos.
+        </p>
+
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <form action="/resultado" method="POST">
+
+            <!-- Transporte -->
+            <div class="mb-4">
+
+                <label class="form-label fw-bold">
+                    Medio de transporte
+                </label>
+
+                <select class="form-select" name="transporte">
+
+                    <option value="carro">🚗 Carro</option>
+                    <option value="moto">🏍 Moto</option>
+                    <option value="bus">🚌 Transporte público</option>
+                    <option value="bicicleta">🚲 Bicicleta</option>
+                    <option value="caminar">🚶 Caminar</option>
+
+                </select>
+
+            </div>
+
+            <!-- Electricidad -->
+
+            <div class="mb-4">
+
+                <label class="form-label fw-bold">
+                    Consumo de electricidad
+                </label>
+
+                <select class="form-select" name="energia">
+
+                    <option value="alto">Alto</option>
+                    <option value="medio">Medio</option>
+                    <option value="bajo">Bajo</option>
+
+                </select>
+
+            </div>
+
+            <!-- Agua -->
+
+            <div class="mb-4">
+
+                <label class="form-label fw-bold">
+                    Consumo de agua
+                </label>
+
+                <select class="form-select" name="agua">
+
+                    <option value="alto">Alto</option>
+                    <option value="medio">Medio</option>
+                    <option value="bajo">Bajo</option>
+
+                </select>
+
+            </div>
+
+            <!-- Reciclaje -->
+
+            <div class="mb-4">
+
+                <label class="form-label fw-bold d-block">
+                    ¿Reciclas?
+                </label>
+
+                <input type="radio" name="recicla" value="si" checked>
+                Sí
+
+                &nbsp;&nbsp;
+
+                <input type="radio" name="recicla" value="no">
+                No
+
+            </div>
+
+            <div class="text-center">
+
+                <button class="btn btn-success btn-lg px-5">
+
+                    Calcular mi huella 🌍
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
