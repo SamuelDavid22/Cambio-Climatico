@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold text-success">
+            🌍 Resultado del análisis
+        </h1>
+
+        <p class="text-muted fs-5">
+            EcoAcción IA analizó tus hábitos ambientales.
+        </p>
+
+    </div>
+
+    <!-- PUNTAJE -->
+
+    <div class="card shadow-lg border-0 rounded-4 mb-4">
+
+        <div class="card-body text-center p-5">
+
+            <h2 class="display-1 fw-bold text-{{ color }}">
+                {{ puntos }}
+            </h2>
+
+            <h4 class="mb-4">
+
+                Impacto
+
+                <span class="badge bg-{{ color }}">
+                    {{ nivel }}
+                </span>
+
+            </h4>
+
+            <div class="progress mb-4" style="height:28px;">
+
+                <div class="progress-bar bg-{{ color }}"
+                     role="progressbar"
+                     style="width: {{ puntos }}%;"
+                     aria-valuenow="{{ puntos }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100">
+
+                    {{ puntos }}%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- GRÁFICA -->
+
+    <div class="card shadow border-0 rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <h3 class="text-success mb-4 text-center">
+                📊 Distribución del impacto
+            </h3>
+
+            <canvas id="graficaHuella" height="120"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- MENSAJE -->
+
+    <div class="card shadow border-0 rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <h3 class="text-success mb-3">
+
+                🤖 Análisis general
+
+            </h3>
+
+            <p class="fs-5">
+
+                {{ mensaje }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- RECOMENDACIONES -->
+
+    <div class="card shadow border-0 rounded-4 mb-4">
+
+        <div class="card-body">
+
+            <h3 class="text-success mb-4">
+
+                🌱 Recomendaciones personalizadas
+
+            </h3>
+
+            <ul class="list-group list-group-flush">
+
+                {% for recomendacion in recomendaciones %}
+
+                <li class="list-group-item">
+
+                    {{ recomendacion }}
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- ESTADÍSTICAS -->
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1>🌱</h1>
+
+                    <h5>Nivel</h5>
+
+                    <h3 class="text-{{ color }}">
+
+                        {{ nivel }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1>📊</h1>
+
+                    <h5>Puntaje</h5>
+
+                    <h3>
+
+                        {{ puntos }}/100
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0 rounded-4 h-100 text-center">
+
+                <div class="card-body">
+
+                    <h1>🎯</h1>
+
+                    <h5>Meta</h5>
+
+                    <h3 class="text-success">
+
+                        Menos de 30
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="text-center mt-5">
+
+        <a href="{{ url_for('huella') }}"
+           class="btn btn-success btn-lg me-3">
+
+            🔄 Calcular nuevamente
+
+        </a>
+
+        <a href="{{ url_for('inicio') }}"
+           class="btn btn-outline-success btn-lg">
+
+            🏠 Volver al inicio
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const puntos = {{ puntos }};
+
+const restante = 100 - puntos;
+
+new Chart(document.getElementById("graficaHuella"),{
+
+    type:"doughnut",
+
+    data:{
+
+        labels:["Impacto","Restante"],
+
+        datasets:[{
+
+            data:[puntos,restante],
+
+            backgroundColor:[
+
+                "#2E7D32",
+
+                "#E5E7EB"
+
+            ],
+
+            borderWidth:0
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+                position:"bottom"
+            }
+
+        },
+
+        cutout:"70%"
+
+    }
+
+});
+
+</script>
+
+{% endblock %}
