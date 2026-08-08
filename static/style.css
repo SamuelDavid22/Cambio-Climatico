@@ -1,60 +1,245 @@
-body{
-    background:#eef8ef;
-    font-family:Arial, Helvetica, sans-serif;
-    text-align:center;
-    margin-top:100px;
-}
+/*=========================
+    GENERAL
+=========================*/
 
-header{
-    background:white;
-    text-align:center;
-
-    padding:20px;
-
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-
-h1{
-    color:#2e7d32;
-}
-
-h2{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-button{
-    background:#2e7d32;
-    color:white;
-    border:none;
-    padding:12px 24px;
-    border-radius:8px;
-    cursor:pointer;
+body{
+    font-family:'Poppins',sans-serif;
+    color:#333;
+    overflow-x:hidden;
+
+    background:linear-gradient(
+        135deg,
+        #F7FFF8 0%,
+        #EAFBF1 30%,
+        #DDF7EC 55%,
+        #E6F7FF 80%,
+        #FFFFFF 100%
+    );
+
+    background-attachment:fixed;
 }
 
-button:hover{
-    background:#1b5e20;
+/*=========================
+    NAVBAR
+=========================*/
+
+.navbar{
+    background:rgba(255,255,255,.90) !important;
+    backdrop-filter:blur(10px);
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+    padding:18px 0;
 }
 
-nav a{
-    text-decoration:none;
-    color:#2e7d32;
-    font-weight:bold;
-
-    margin:0 20px;
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:#2E7D32 !important;
 }
 
-nav{
-    margin-top: 15px;
-    margin-right: 5px;
-
-    text-decoration: none;
+.nav-link{
+    margin-left:25px;
+    font-weight:500;
+    color:#444 !important;
+    transition:.3s;
 }
 
-nav a:hover{
-    color:#1b5e20;
+.nav-link:hover{
+    color:#2E7D32 !important;
 }
 
-main{
+/*=========================
+    HERO
+=========================*/
+
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:70px;
+    padding:90px 0;
+}
+
+.hero-text{
+    flex:1;
+}
+
+.hero-text h1{
+    font-size:64px;
+    font-weight:800;
+    line-height:1.15;
+    color:#1B5E20;
+}
+
+.hero-text p{
+    margin:30px 0;
+    font-size:22px;
+    line-height:1.8;
+    color:#555;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:18px;
+}
+
+.hero-buttons .btn{
+    padding:14px 34px;
+    border-radius:50px;
+    font-weight:600;
+}
+
+/*=========================
+    IMAGEN DEL PLANETA
+=========================*/
+
+.hero-image{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.planet-img{
+    width:420px;
+    max-width:100%;
+    height:auto;
+    animation:float 4s ease-in-out infinite;
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,.18));
+}
+
+@keyframes float{
+
+0%{
+    transform:translateY(0);
+}
+
+50%{
+    transform:translateY(-18px);
+}
+
+100%{
+    transform:translateY(0);
+}
+
+}
+
+/*=========================
+    FEATURES
+=========================*/
+
+.features{
+    padding:40px 0 90px;
+}
+
+.features h2{
     text-align:center;
+    color:#2E7D32;
+    font-size:46px;
+    font-weight:700;
+    margin-bottom:55px;
+}
+
+.feature-card{
+    background:rgba(255,255,255,.90);
+    backdrop-filter:blur(10px);
+    border-radius:25px;
+    padding:35px;
+    text-align:center;
+    height:100%;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.feature-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.icon{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.feature-card h4{
+    color:#2E7D32;
+    margin-bottom:15px;
+    font-size:28px;
+}
+
+.feature-card p{
+    color:#666;
+    line-height:1.7;
+}
+
+/*=========================
+    FOOTER
+=========================*/
+
+footer{
+    background:#2E7D32;
+    color:white;
+    text-align:center;
+    padding:30px;
     margin-top:80px;
+}
+
+/*=========================
+    SCROLLBAR
+=========================*/
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#43A047;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#eef7ef;
+}
+
+/*=========================
+    RESPONSIVE
+=========================*/
+
+@media(max-width:992px){
+
+.hero{
+    flex-direction:column;
+    text-align:center;
+    padding:70px 0;
+}
+
+.hero-text h1{
+    font-size:46px;
+}
+
+.hero-text p{
+    font-size:20px;
+}
+
+.hero-buttons{
+    justify-content:center;
+}
+
+.hero-image{
+    margin-top:35px;
+}
+
+.planet-img{
+    width:280px;
+}
+
+.features h2{
+    font-size:36px;
+}
+
 }
