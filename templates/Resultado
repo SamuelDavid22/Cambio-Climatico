@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow-lg border-0 rounded-4 p-5">
+
+        <div class="text-center">
+
+            <h1 class="text-success fw-bold mb-4">
+                🌍 Resultado del análisis
+            </h1>
+
+            <h2 class="display-1 fw-bold text-{{ color }}">
+                {{ puntos }}/100
+            </h2>
+
+            <h3 class="mt-3">
+                Nivel de impacto:
+                <span class="text-{{ color }}">
+                    {{ nivel }}
+                </span>
+            </h3>
+
+        </div>
+
+        <hr class="my-4">
+
+        <div class="alert alert-{{ color }}">
+
+            <h4 class="mb-3">
+                🤖 EcoAcción IA recomienda
+            </h4>
+
+            <p class="mb-0">
+                {{ mensaje }}
+            </p>
+
+        </div>
+
+        <div class="row mt-4">
+
+            <div class="col-md-4">
+
+                <div class="card text-center border-0 shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h5>🌱 Impacto</h5>
+
+                        <p class="fs-5 fw-bold text-{{ color }}">
+                            {{ nivel }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card text-center border-0 shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h5>📊 Puntaje</h5>
+
+                        <p class="fs-5 fw-bold">
+                            {{ puntos }}/100
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card text-center border-0 shadow-sm h-100">
+
+                    <div class="card-body">
+
+                        <h5>🌍 Objetivo</h5>
+
+                        <p class="fs-5 fw-bold text-success">
+                            Reducir tu huella
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+
+            <a href="/huella" class="btn btn-success btn-lg me-3">
+                🔄 Calcular nuevamente
+            </a>
+
+            <a href="/" class="btn btn-outline-success btn-lg">
+                🏠 Volver al inicio
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
