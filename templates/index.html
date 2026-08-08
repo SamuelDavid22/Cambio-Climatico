@@ -1,24 +1,127 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>EcoAcción IA</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-</head>
+{% block content %}
 
-<body>
+<div class="container">
 
-<h1>🌎 EcoAcción IA</h1>
+    <!-- HERO -->
+    <section class="hero">
 
-<p>Bienvenido a EcoAcción IA.</p>
+        <div class="hero-text">
 
-<p>Esta aplicación te ayudará a reducir tu huella de carbono mediante inteligencia artificial.</p>
+            <h1>
+                Tu asistente inteligente para cuidar el planeta 🌱
+            </h1>
 
-<a href="/inicio">
-    <button>Comenzar</button>
-</a>
+            <p>
+                Conoce tu impacto ambiental y recibe recomendaciones
+                inteligentes para reducir tu huella de carbono.
+            </p>
 
-</body>
-</html>
+            <div class="hero-buttons">
+
+                <a href="{{ url_for('huella') }}" class="btn btn-success btn-lg">
+                    Empezar ahora
+                </a>
+
+                <a href="#features" class="btn btn-outline-success btn-lg">
+                    Saber más
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+                src="{{ url_for('static', filename='img/planeta.webp') }}"
+                alt="Planeta Tierra"
+                class="planet-img"
+            >
+
+        </div>
+
+    </section>
+
+    <!-- CARACTERÍSTICAS -->
+    <section class="features" id="features">
+
+        <h2>
+            ¿Qué puede hacer EcoAcción IA?
+        </h2>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="icon">
+                        🌳
+                    </div>
+
+                    <h4>Huella de Carbono</h4>
+
+                    <p>
+                        Calcula el impacto ambiental de tus hábitos diarios
+                        mediante un sistema inteligente.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="icon">
+                        🤖
+                    </div>
+
+                    <h4>IA Ambiental</h4>
+
+                    <p>
+                        Obtén recomendaciones personalizadas utilizando
+                        Inteligencia Artificial.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="icon">
+                        📊
+                    </div>
+
+                    <h4>Estadísticas</h4>
+
+                    <p>
+                        Visualiza tu progreso y conoce cómo reducir
+                        tu huella ecológica.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+
+    <p>
+        © 2026 EcoAcción IA · Proyecto Hackathon
+    </p>
+
+</footer>
+
+{% endblock %}
