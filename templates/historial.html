@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="fw-bold text-success">
+        📊 Historial ambiental
+    </h1>
+
+    <p class="text-muted fs-5">
+        Aquí puedes consultar tus resultados y recomendaciones anteriores.
+    </p>
+
+</div>
+
+
+{% if historial %}
+
+<div class="row g-4">
+
+    {% for resultado in historial %}
+
+    <div class="col-md-6 col-lg-4">
+
+        {% if resultado.tipo == "huella" %}
+
+        <div class="card shadow border-0 rounded-4 h-100">
+
+            <div class="card-body text-center p-4">
+
+                <h1>🌍</h1>
+
+                <h5 class="text-muted">
+                    Análisis de huella
+                </h5>
+
+                <h2 class="display-5 fw-bold text-{{ resultado.color }}">
+                    {{ resultado.puntos }}
+                </h2>
+
+                <p class="mb-2">
+                    Puntaje sobre 100
+                </p>
+
+                <span class="badge bg-{{ resultado.color }} fs-6">
+                    Impacto {{ resultado.nivel }}
+                </span>
+
+            </div>
+
+        </div>
+
+        {% elif resultado.tipo == "ia" %}
+
+        <div class="card shadow border-0 rounded-4 h-100">
+
+            <div class="card-body p-4">
+
+                <h1 class="text-center">
+                    🤖
+                </h1>
+
+                <h5 class="text-success text-center mb-3">
+                    Consulta a EcoAcción IA
+                </h5>
+
+                <p class="mb-2">
+                    <strong>Pregunta:</strong>
+                </p>
+
+                <p class="text-muted">
+                    {{ resultado.pregunta }}
+                </p>
+
+                <hr>
+
+                <p class="mb-2">
+                    <strong>Recomendación:</strong>
+                </p>
+
+                <p>
+                    {{ resultado.respuesta }}
+                </p>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+{% else %}
+
+<div class="card shadow border-0 rounded-4">
+
+    <div class="card-body text-center p-5">
+
+        <h1>🌱</h1>
+
+        <h3 class="text-success">
+            No hay resultados todavía
+        </h3>
+
+        <p class="text-muted">
+            Realiza tu primer análisis o consulta a EcoAcción IA
+            para comenzar a guardar tu historial.
+        </p>
+
+        <a
+            href="{{ url_for('huella') }}"
+            class="btn btn-success btn-lg">
+
+            Calcular mi huella 🌍
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+<div class="text-center mt-5">
+
+    <a
+        href="{{ url_for('huella') }}"
+        class="btn btn-success btn-lg me-3">
+
+        🌱 Nuevo análisis
+
+    </a>
+
+    <a
+        href="{{ url_for('ia') }}"
+        class="btn btn-success btn-lg me-3">
+
+        🤖 Consultar IA
+
+    </a>
+
+    <a
+        href="{{ url_for('inicio') }}"
+        class="btn btn-outline-success btn-lg">
+
+        🏠 Inicio
+
+    </a>
+
+</div>
+
+{% endblock %}
