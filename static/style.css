@@ -1,6 +1,6 @@
-/*=========================
-    GENERAL
-=========================*/
+/*=========================*
+*GENERAL*
+*=========================*/
 
 *{
     margin:0;
@@ -25,9 +25,9 @@ body{
     background-attachment:fixed;
 }
 
-/*=========================
-    NAVBAR
-=========================*/
+/*=========================*
+*NAVBAR*
+*=========================*/
 
 .navbar{
     background:rgba(255,255,255,.90) !important;
@@ -53,11 +53,13 @@ body{
     color:#2E7D32 !important;
 }
 
-/*=========================
-    HERO
-=========================*/
+/*=========================*
+*HERO*
+*=========================*/
 
 .hero{
+    max-width:1170px;
+    margin:0 auto;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -94,9 +96,9 @@ body{
     font-weight:600;
 }
 
-/*=========================
-    IMAGEN DEL PLANETA
-=========================*/
+/*=========================*
+*IMAGEN DEL PLANETA*
+*=========================*/
 
 .hero-image{
     flex:1;
@@ -115,25 +117,27 @@ body{
 
 @keyframes float{
 
-0%{
-    transform:translateY(0);
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-18px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
 }
 
-50%{
-    transform:translateY(-18px);
-}
-
-100%{
-    transform:translateY(0);
-}
-
-}
-
-/*=========================
-    FEATURES
-=========================*/
+/*=========================*
+*FEATURES*
+*=========================*/
 
 .features{
+    max-width:1170px;
+    margin:0 auto;
     padding:40px 0 90px;
 }
 
@@ -177,9 +181,9 @@ body{
     line-height:1.7;
 }
 
-/*=========================
-    FOOTER
-=========================*/
+/*=========================*
+*FOOTER*
+*=========================*/
 
 footer{
     background:#2E7D32;
@@ -189,9 +193,9 @@ footer{
     margin-top:80px;
 }
 
-/*=========================
-    SCROLLBAR
-=========================*/
+/*=========================*
+*SCROLLBAR*
+*=========================*/
 
 ::-webkit-scrollbar{
     width:10px;
@@ -206,40 +210,45 @@ footer{
     background:#eef7ef;
 }
 
-/*=========================
-    RESPONSIVE
-=========================*/
+/*=========================*
+*RESPONSIVE*
+*=========================*/
 
 @media(max-width:992px){
 
-.hero{
-    flex-direction:column;
-    text-align:center;
-    padding:70px 0;
-}
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:70px 20px;
+    }
 
-.hero-text h1{
-    font-size:46px;
-}
+    .hero-text h1{
+        font-size:46px;
+    }
 
-.hero-text p{
-    font-size:20px;
-}
+    .hero-text p{
+        font-size:20px;
+    }
 
-.hero-buttons{
-    justify-content:center;
-}
+    .hero-buttons{
+        justify-content:center;
+    }
 
-.hero-image{
-    margin-top:35px;
-}
+    .hero-image{
+        margin-top:35px;
+    }
 
-.planet-img{
-    width:280px;
-}
+    .planet-img{
+        width:280px;
+    }
 
-.features h2{
-    font-size:36px;
-}
+    .features{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .features h2{
+        font-size:36px;
+    }
 
 }
