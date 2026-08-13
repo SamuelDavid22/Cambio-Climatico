@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="fw-bold text-success">
+        🤖 EcoAcción IA
+    </h1>
+
+    <p class="text-muted fs-5">
+        Cuéntame sobre tus hábitos y recibe recomendaciones para cuidar el planeta.
+    </p>
+
+</div>
+
+
+<div class="card shadow-lg border-0 rounded-4 mb-4">
+
+    <div class="card-body p-5">
+
+        <h3 class="text-success mb-4">
+            🌱 ¿En qué quieres mejorar?
+        </h3>
+
+        <form method="POST" action="{{ url_for('ia') }}">
+
+            <div class="mb-4">
+
+                <label class="form-label fw-bold">
+                    Escribe tu situación:
+                </label>
+
+                <textarea
+                    name="pregunta"
+                    class="form-control rounded-4"
+                    rows="5"
+                    placeholder="Ejemplo: Uso mucho el carro y consumo bastante electricidad..."
+                    required>{{ pregunta }}</textarea>
+
+            </div>
+
+            <div class="text-center">
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-lg px-5">
+
+                    🤖 Obtener recomendación
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% if respuesta %}
+
+<div class="card shadow border-0 rounded-4 mb-4">
+
+    <div class="card-body p-4">
+
+        <h3 class="text-success mb-3">
+            🌍 Recomendación de EcoAcción IA
+        </h3>
+
+        <p class="text-muted mb-2">
+            <strong>Tu situación:</strong>
+        </p>
+
+        <p class="mb-4">
+            {{ pregunta }}
+        </p>
+
+        <p class="fs-5 mb-0">
+            {{ respuesta }}
+        </p>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+
+<div class="text-center mt-4">
+
+    <a
+        href="{{ url_for('historial') }}"
+        class="btn btn-success btn-lg me-3">
+
+        📊 Ver historial
+
+    </a>
+
+    <a
+        href="{{ url_for('inicio') }}"
+        class="btn btn-outline-success btn-lg">
+
+        🏠 Volver al inicio
+
+    </a>
+
+</div>
+
+{% endblock %}
