@@ -1,93 +1,400 @@
 from flask import Flask, render_template, request
-import sqlite3
 
 app = Flask(__name__)
 
-DATABASE = "ecoaccion.db"
 
-def crear_bd():
-    con = sqlite3.connect(DATABASE)
-    cur = con.cursor()
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS historial(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        puntos INTEGER,
-        nivel TEXT
-    )
-    """)
-    con.commit()
-    con.close()
+# ==========================
+# HISTORIAL
+# ==========================
 
-crear_bd()
+historial_datos = []
+
+
+# ==========================
+# Página principal
+# ==========================
 
 @app.route("/")
 def inicio():
     return render_template("index.html")
 
+
+# ==========================
+# Calculadora
+# ==========================
+
 @app.route("/huella")
 def huella():
     return render_template("huella.html")
 
+
+# ==========================
+# IA Ambiental
+# ==========================
+
+@app.route("/ia", methods=["GET", "POST"])
+def ia():
+
+    respuesta = None
+    pregunta = ""
+
+    if request.method == "POST":
+
+        pregunta = request.form.get("pregunta", "").strip()
+
+        if pregunta:
+
+            texto = pregunta.lower()
+
+            # ==========================
+            # Recomendaciones de IA
+            # ==========================
+
+            if (
+                "agua" in texto
+                or "ducha" in texto
+                or "llave" in texto
+            ):
+
+                respuesta = (
+                    "💧 Para cuidar el agua, intenta reducir "
+                    "el tiempo de tus duchas, cerrar la llave "
+                    "mientras te cepillas los dientes y reutilizar "
+                    "agua cuando sea posible."
+                )
+
+            elif (
+                "luz" in texto
+                or "electricidad" in texto
+                or "energia" in texto
+                or "energía" in texto
+                or "aparato" in texto
+            ):
+
+                respuesta = (
+                    "💡 Para ahorrar energía, apaga las luces "
+                    "que no estés utilizando, desconecta los "
+                    "aparatos que no necesites y aprovecha "
+                    "la luz natural."
+                )
+
+            elif (
+                "carro" in texto
+                or "auto" in texto
+                or "moto" in texto
+                or "transporte" in texto
+            ):
+
+                respuesta = (
+                    "🚲 Para reducir las emisiones, intenta "
+                    "caminar, utilizar bicicleta o transporte "
+                    "público cuando sea posible. También puedes "
+                    "compartir el vehículo."
+                )
+
+            elif (
+                "reciclar" in texto
+                or "reciclaje" in texto
+                or "basura" in texto
+                or "residuos" in texto
+                or "plastico" in texto
+                or "plástico" in texto
+            ):
+
+                respuesta = (
+                    "♻️ Separa correctamente los residuos y "
+                    "reutiliza los materiales siempre que puedas. "
+                    "Recuerda separar papel, cartón, plástico, "
+                    "vidrio y residuos orgánicos."
+                )
+
+            elif (
+                "comida" in texto
+                or "alimentacion" in texto
+                or "alimentación" in texto
+                or "carne" in texto
+                or "alimento" in texto
+            ):
+
+                respuesta = (
+                    "🥦 Intenta evitar desperdiciar alimentos, "
+                    "compra solamente lo necesario y aprovecha "
+                    "las sobras. También puedes incluir más "
+                    "alimentos de origen vegetal."
+                )
+
+            elif (
+                "arbol" in texto
+                or "árbol" in texto
+                or "plantas" in texto
+                or "naturaleza" in texto
+                or "bosque" in texto
+            ):
+
+                respuesta = (
+                    "🌳 Cuida las zonas verdes, evita arrojar "
+                    "basura en espacios naturales y participa "
+                    "en actividades de reforestación cuando "
+                    "sea posible."
+                )
+
+            else:
+
+                respuesta = (
+                    "🌍 Puedes comenzar reduciendo el consumo "
+                    "innecesario, ahorrando agua y energía, "
+                    "reciclando y utilizando medios de transporte "
+                    "sostenibles cuando sea posible."
+                )
+
+            # ==========================
+            # GUARDAR EN HISTORIAL
+            # ==========================
+
+            historial_datos.append({
+                "tipo": "ia",
+                "pregunta": pregunta,
+                "respuesta": respuesta
+            })
+
+    return render_template(
+        "ia.html",
+        pregunta=pregunta,
+        respuesta=respuesta
+    )
+
+
+# ==========================
+# Historial
+# ==========================
+
 @app.route("/historial")
 def historial():
-    con = sqlite3.connect(DATABASE)
-    cur = con.cursor()
-    cur.execute("SELECT fecha,puntos,nivel FROM historial ORDER BY id DESC")
-    datos = cur.fetchall()
-    con.close()
-    return render_template("historial.html", historial=datos)
+
+    return render_template(
+        "historial.html",
+        historial=historial_datos
+    )
+
+
+# ==========================
+# Resultado de huella
+# ==========================
 
 @app.route("/resultado", methods=["POST"])
 def resultado():
-    transporte=request.form["transporte"]
-    energia=request.form["energia"]
-    agua=request.form["agua"]
-    recicla=request.form["recicla"]
 
-    puntos=0
-    t={"carro":40,"moto":30,"bus":20,"bicicleta":5,"caminar":0}
-    puntos+=t.get(transporte,0)
-    puntos+=30 if energia=="alto" else 20 if energia=="medio" else 10
-    puntos+=20 if agua=="alto" else 10 if agua=="medio" else 5
-    if recicla=="no":
-        puntos+=10
+    transporte = request.form["transporte"]
+    energia = request.form["energia"]
+    agua = request.form["agua"]
+    recicla = request.form["recicla"]
 
-    if puntos<=30:
-        nivel,color,mensaje="Bajo","success","🌱 ¡Excelente trabajo! Tus hábitos ayudan a proteger el planeta."
-    elif puntos<=60:
-        nivel,color,mensaje="Medio","warning","🌿 Tu impacto ambiental es moderado. Todavía puedes mejorar."
+    puntos = 0
+
+    # ==========================
+    # Transporte
+    # ==========================
+
+    if transporte == "carro":
+        puntos += 40
+
+    elif transporte == "moto":
+        puntos += 30
+
+    elif transporte == "bus":
+        puntos += 20
+
+    elif transporte == "bicicleta":
+        puntos += 5
+
+    elif transporte == "caminar":
+        puntos += 0
+
+    # ==========================
+    # Energía
+    # ==========================
+
+    if energia == "alto":
+        puntos += 30
+
+    elif energia == "medio":
+        puntos += 20
+
     else:
-        nivel,color,mensaje="Alto","danger","🌍 Tu huella de carbono es alta. Es importante cambiar algunos hábitos."
+        puntos += 10
 
-    recomendaciones=[]
-    if transporte=="carro":
-        recomendaciones.append("🚗 Usa transporte público o bicicleta algunos días.")
-    elif transporte=="moto":
-        recomendaciones.append("🏍 Reduce los recorridos en moto.")
-    elif transporte=="bus":
-        recomendaciones.append("🚌 Buen trabajo usando transporte público.")
-    elif transporte=="bicicleta":
-        recomendaciones.append("🚲 Excelente elección.")
+    # ==========================
+    # Agua
+    # ==========================
+
+    if agua == "alto":
+        puntos += 20
+
+    elif agua == "medio":
+        puntos += 10
+
     else:
-        recomendaciones.append("🚶 Caminar ayuda al planeta.")
+        puntos += 5
 
-    recomendaciones.append("💡 Reduce el consumo de energía." if energia!="bajo" else "⚡ Buen consumo de energía.")
-    recomendaciones.append("🚿 Ahorra agua." if agua!="bajo" else "🌊 Buen consumo de agua.")
-    recomendaciones.append("♻️ Sigue reciclando." if recicla=="si" else "🗑 Empieza a reciclar.")
+    # ==========================
+    # Reciclaje
+    # ==========================
 
-    con=sqlite3.connect(DATABASE)
-    cur=con.cursor()
-    cur.execute("INSERT INTO historial(puntos,nivel) VALUES(?,?)",(puntos,nivel))
-    con.commit()
-    con.close()
+    if recicla == "no":
+        puntos += 10
 
-    return render_template("dashboard.html",
-                           puntos=puntos,
-                           nivel=nivel,
-                           color=color,
-                           mensaje=mensaje,
-                           recomendaciones=recomendaciones)
+    # ==========================
+    # Nivel
+    # ==========================
 
-if __name__=="__main__":
+    if puntos <= 30:
+
+        nivel = "Bajo"
+        color = "success"
+
+        mensaje = (
+            "🌱 ¡Excelente trabajo! Tus hábitos ayudan "
+            "a proteger el planeta."
+        )
+
+    elif puntos <= 60:
+
+        nivel = "Medio"
+        color = "warning"
+
+        mensaje = (
+            "🌿 Tu impacto ambiental es moderado. "
+            "Todavía puedes mejorar."
+        )
+
+    else:
+
+        nivel = "Alto"
+        color = "danger"
+
+        mensaje = (
+            "🌍 Tu huella de carbono es alta. "
+            "Es importante cambiar algunos hábitos."
+        )
+
+    # ==========================
+    # Recomendaciones
+    # ==========================
+
+    recomendaciones = []
+
+    if transporte == "carro":
+
+        recomendaciones.append(
+            "🚗 Intenta utilizar transporte público, bicicleta "
+            "o compartir el vehículo algunos días."
+        )
+
+    elif transporte == "moto":
+
+        recomendaciones.append(
+            "🏍 Reduce los recorridos en moto cuando sea posible."
+        )
+
+    elif transporte == "bus":
+
+        recomendaciones.append(
+            "🚌 ¡Buen trabajo! El transporte público "
+            "genera menos emisiones."
+        )
+
+    elif transporte == "bicicleta":
+
+        recomendaciones.append(
+            "🚲 Excelente elección. La bicicleta no genera "
+            "emisiones contaminantes."
+        )
+
+    elif transporte == "caminar":
+
+        recomendaciones.append(
+            "🚶 Caminar es una de las mejores opciones "
+            "para cuidar el planeta."
+        )
+
+    if energia == "alto":
+
+        recomendaciones.append(
+            "💡 Apaga las luces y desconecta los aparatos "
+            "que no estés utilizando."
+        )
+
+    elif energia == "medio":
+
+        recomendaciones.append(
+            "🔋 Puedes seguir reduciendo tu consumo eléctrico "
+            "utilizando bombillos LED."
+        )
+
+    else:
+
+        recomendaciones.append(
+            "⚡ Muy bien. Tu consumo eléctrico es bajo."
+        )
+
+    if agua == "alto":
+
+        recomendaciones.append(
+            "🚿 Reduce el tiempo de las duchas y cierra "
+            "la llave cuando no la uses."
+        )
+
+    elif agua == "medio":
+
+        recomendaciones.append(
+            "💧 Intenta reutilizar agua para limpiar "
+            "o regar plantas."
+        )
+
+    else:
+
+        recomendaciones.append(
+            "🌊 Excelente manejo del consumo de agua."
+        )
+
+    if recicla == "si":
+
+        recomendaciones.append(
+            "♻️ Continúa reciclando y separando "
+            "correctamente los residuos."
+        )
+
+    else:
+
+        recomendaciones.append(
+            "🗑 Empieza a separar plástico, vidrio, "
+            "papel y cartón para reciclar."
+        )
+
+    # ==========================
+    # GUARDAR RESULTADO
+    # ==========================
+
+    historial_datos.append({
+        "tipo": "huella",
+        "puntos": puntos,
+        "nivel": nivel,
+        "color": color
+    })
+
+    return render_template(
+        "dashboard.html",
+        puntos=puntos,
+        nivel=nivel,
+        color=color,
+        mensaje=mensaje,
+        recomendaciones=recomendaciones
+    )
+
+
+# ==========================
+# Ejecutar aplicación
+# ==========================
+
+if __name__ == "__main__":
     app.run(debug=True)
