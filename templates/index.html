@@ -2,58 +2,58 @@
 
 {% block content %}
 
-<div class="container">
+<section class="hero">
 
-    <!-- HERO -->
-    <section class="hero">
+    <div class="hero-text">
 
-        <div class="hero-text">
+        <h1>
+            Tu asistente inteligente para cuidar el planeta 🌱
+        </h1>
 
-            <h1>
-                Tu asistente inteligente para cuidar el planeta 🌱
-            </h1>
+        <p>
+            Conoce tu impacto ambiental y recibe recomendaciones
+            inteligentes para reducir tu huella de carbono.
+        </p>
 
-            <p>
-                Conoce tu impacto ambiental y recibe recomendaciones
-                inteligentes para reducir tu huella de carbono.
-            </p>
+        <div class="hero-buttons">
 
-            <div class="hero-buttons">
+            <a href="{{ url_for('huella') }}" class="btn btn-success btn-lg">
+                Empezar ahora
+            </a>
 
-                <a href="{{ url_for('huella') }}" class="btn btn-success btn-lg">
-                    Empezar ahora
-                </a>
-
-                <a href="#features" class="btn btn-outline-success btn-lg">
-                    Saber más
-                </a>
-
-            </div>
+            <a href="#features" class="btn btn-outline-success btn-lg">
+                Saber más
+            </a>
 
         </div>
 
-        <div class="hero-image">
+    </div>
 
-            <img
-                src="{{ url_for('static', filename='img/planeta.webp') }}"
-                alt="Planeta Tierra"
-                class="planet-img"
-            >
+    <div class="hero-image">
 
-        </div>
+        <img
+            src="{{ url_for('static', filename='img/planeta.webp') }}"
+            alt="Planeta Tierra"
+            class="planet-img"
+        >
 
-    </section>
+    </div>
 
-    <!-- CARACTERÍSTICAS -->
-    <section class="features" id="features">
+</section>
 
-        <h2>
-            ¿Qué puede hacer EcoAcción IA?
-        </h2>
 
-        <div class="row g-4">
+<section class="features" id="features">
 
-            <div class="col-lg-4">
+    <h2>
+        ¿Qué puede hacer EcoAcción IA?
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-lg-4">
+
+            <a href="{{ url_for('huella') }}"
+               style="text-decoration: none; color: inherit;">
 
                 <div class="feature-card">
 
@@ -70,9 +70,15 @@
 
                 </div>
 
-            </div>
+            </a>
 
-            <div class="col-lg-4">
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <a href="{{ url_for('ia') }}"
+               style="text-decoration: none; color: inherit;">
 
                 <div class="feature-card">
 
@@ -89,9 +95,15 @@
 
                 </div>
 
-            </div>
+            </a>
 
-            <div class="col-lg-4">
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <a href="{{ url_for('historial') }}"
+               style="text-decoration: none; color: inherit;">
 
                 <div class="feature-card">
 
@@ -108,13 +120,14 @@
 
                 </div>
 
-            </div>
+            </a>
 
         </div>
 
-    </section>
+    </div>
 
-</div>
+</section>
+
 
 <footer>
 
